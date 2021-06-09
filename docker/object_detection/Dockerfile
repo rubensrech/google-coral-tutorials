@@ -15,16 +15,16 @@
 
 # Run the following from this directory to build this image and run it:
 #
-#     DETECT_DIR=${PWD}/out && mkdir -p $DETECT_DIR
+#     DETECT_DIR=/mnt/4E0AEF320AEF15AD/RUBENS/det_out && mkdir -p $DETECT_DIR
 #
 #     docker build . -t detect-tutorial-tf1
 #
 #     docker run --name edgetpu-detect \
 #       --rm -it --privileged -p 6006:6006 \
-#       --mount type=bind,src=${DETECT_DIR},dst=/tensorflow/models/research/learn_pet \
+#       --mount type=bind,src=${DETECT_DIR},dst=/tensorflow/models/research/learn_coco \
 #       detect-tutorial-tf1
 
-FROM tensorflow/tensorflow:1.15.5
+FROM tensorflow/tensorflow:1.15.0-gpu-py3
 
 ARG DEBIAN_FRONTEND=noninteractive
 
