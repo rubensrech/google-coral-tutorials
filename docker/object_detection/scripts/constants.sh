@@ -27,15 +27,15 @@ config_filename_map["mobilenet_v1_ssd-true"]="pipeline_mobilenet_v1_ssd_retrain_
 config_filename_map["mobilenet_v1_ssd-false"]="pipeline_mobilenet_v1_ssd_retrain_last_few_layers.config"
 config_filename_map["mobilenet_v2_ssd-true"]="pipeline_mobilenet_v2_ssd_retrain_whole_model.config"
 config_filename_map["mobilenet_v2_ssd-false"]="pipeline_mobilenet_v2_ssd_retrain_last_few_layers.config"
-
+config_filename_map["mobilenet_v2_ssd-coco-true"]="pipeline_mobilenet_v2_ssd_coco_qat_retrain_whole_model.config"
 
 INPUT_TENSORS='normalized_input_image_tensor'
 OUTPUT_TENSORS='TFLite_Detection_PostProcess,TFLite_Detection_PostProcess:1,TFLite_Detection_PostProcess:2,TFLite_Detection_PostProcess:3'
 
 
 OBJ_DET_DIR="$PWD"
-LEARN_DIR="${OBJ_DET_DIR}/learn_pet"
-DATASET_DIR="${LEARN_DIR}/pet"
+LEARN_DIR="${OBJ_DET_DIR}/learn_coco"
+DATASET_DIR="${LEARN_DIR}/coco"
 CKPT_DIR="${LEARN_DIR}/ckpt"
 TRAIN_DIR="${LEARN_DIR}/train"
 OUTPUT_DIR="${LEARN_DIR}/models"
