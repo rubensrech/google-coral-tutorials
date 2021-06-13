@@ -23,15 +23,20 @@ usage() {
   Converts TensorFlow checkpoint to EdgeTPU-compatible TFLite file.
 
   --checkpoint_num  Checkpoint number, by default 0.
+  --model_name      Model name referring path to checkpoint files, by default `ssd_mobilenet_v2_pet`.
   --help            Display this help.
 END_OF_USAGE
 }
 
 ckpt_number=0
+model_name=ssd_mobilenet_v2_pet
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --checkpoint_num)
       ckpt_number=$2
+      shift 2 ;;
+    --model_name)
+      model_name=$2
       shift 2 ;;
     --help)
       usage
@@ -46,6 +51,8 @@ done
 source "$PWD/constants.sh"
 
 mkdir -p "${OUTPUT_DIR}"
+mkdir -p "${OUTPUT_DIR}/${model_name}"
+OUTPUT_DIR=${OUTPUT_DIR}/${model_name}
 
 echo "GENERATING label file..."
 echo "0 Abyssinian" >> "${OUTPUT_DIR}/labels.txt"
