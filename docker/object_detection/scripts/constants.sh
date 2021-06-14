@@ -34,7 +34,7 @@ OUTPUT_TENSORS='TFLite_Detection_PostProcess,TFLite_Detection_PostProcess:1,TFLi
 
 
 OBJ_DET_DIR="$PWD"
-LEARN_DIR="${OBJ_DET_DIR}/learn_coco"
+LEARN_DIR="${OBJ_DET_DIR}/learn"
 DATASET_DIR="${LEARN_DIR}/coco"
 CKPT_DIR="${LEARN_DIR}/ckpt"
 TRAIN_DIR="${LEARN_DIR}/train"
