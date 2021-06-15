@@ -1,0 +1,13 @@
+Edge TPU Compiler version 15.0.340273435
+Input: ssd_mobilenet_v2_subcoco_tflearn/ssd_mobilenet_v2_subcoco14_transf_learn_quant.tflite
+Output: ssd_mobilenet_v2_subcoco_tflearn/ssd_mobilenet_v2_subcoco14_transf_learn_quant_edgetpu.tflite
+
+Operator                       Count      Status
+
+DEPTHWISE_CONV_2D              17         Mapped to Edge TPU
+CONV_2D                        55         Mapped to Edge TPU
+ADD                            10         Mapped to Edge TPU
+CUSTOM                         1          Operation is working on an unsupported data type
+LOGISTIC                       1          Mapped to Edge TPU
+CONCATENATION                  2          Mapped to Edge TPU
+RESHAPE                        13         Mapped to Edge TPU
