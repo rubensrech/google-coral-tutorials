@@ -24,17 +24,23 @@ usage() {
 
   --network_type      Can be one of [mobilenet_v1_ssd, mobilenet_v2_ssd],
                       mobilenet_v2_ssd by default.
+  --train_whole_model Whether or not to train all layers of the model. false
+                      by default, in which only the last few layers are trained.
   --help              Display this help.
 END_OF_USAGE
 }
 
 network_type="mobilenet_v2_ssd"
 skip_tf_record=false
+train_whole_model="false"
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --network_type)
       network_type=$2
       shift 2 ;;
+    --train_whole_model)
+      train_whole_model=$2
+      shift 2;;
     --skip_tf_record)
       skip_tf_record=true
       shift 1 ;;
@@ -68,7 +74,7 @@ rm -rf "${CKPT_DIR}/${ckpt_name}"
 mv "${ckpt_name}" "${CKPT_DIR}"
 
 echo "CHOSING config file..."
-config_filename="${config_filename_map[${network_type}-coco-true]}"
+config_filename="${config_filename_map[${network_type}-${train_whole_model}]}"
 cd "${OBJ_DET_DIR}"
 cp "configs/${config_filename}" "${CKPT_DIR}/pipeline.config"
 

@@ -29,7 +29,8 @@ END_OF_USAGE
 }
 
 ckpt_number=0
-model_name=ssd_mobilenet_v2_pet
+model_name=ssd_mobilenet_v2_subcoco
+labels=subcoco14
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --checkpoint_num)
@@ -37,6 +38,9 @@ while [[ $# -gt 0 ]]; do
       shift 2 ;;
     --model_name)
       model_name=$2
+      shift 2 ;;
+    --labels)
+      labels=$2
       shift 2 ;;
     --help)
       usage
@@ -54,9 +58,31 @@ mkdir -p "${OUTPUT_DIR}"
 mkdir -p "${OUTPUT_DIR}/${model_name}"
 OUTPUT_DIR=${OUTPUT_DIR}/${model_name}
 
+MODEL_DIR=${LEARN_DIR}/${model_name}
+CKPT_DIR=${MODEL_DIR}/ckpt
+TRAIN_DIR=${MODEL_DIR}/train
+
 echo "GENERATING label file..."
-echo "0 Abyssinian" >> "${OUTPUT_DIR}/labels.txt"
-echo "1 american_bulldog" >> "${OUTPUT_DIR}/labels.txt"
+
+if [ "${labels}" = pet ]; then
+  echo "0 Abyssinian" >> "${OUTPUT_DIR}/labels.txt"
+  echo "1 american_bulldog" >> "${OUTPUT_DIR}/labels.txt"
+elif [ "${labels}" = subcoco14 ]; then
+  echo "1 person" >> "${OUTPUT_DIR}/labels.txt"
+  echo "2 bicycle" >> "${OUTPUT_DIR}/labels.txt"
+  echo "3 car" >> "${OUTPUT_DIR}/labels.txt"
+  echo "4 motorcycle" >> "${OUTPUT_DIR}/labels.txt"
+  echo "5 airplane" >> "${OUTPUT_DIR}/labels.txt"
+  echo "6 bus" >> "${OUTPUT_DIR}/labels.txt"
+  echo "7 train" >> "${OUTPUT_DIR}/labels.txt"
+  echo "8 truck" >> "${OUTPUT_DIR}/labels.txt"
+  echo "9 boat" >> "${OUTPUT_DIR}/labels.txt"
+  echo "10 traffic light" >> "${OUTPUT_DIR}/labels.txt"
+  echo "11 fire hydrant" >> "${OUTPUT_DIR}/labels.txt"
+  echo "13 stop sign" >> "${OUTPUT_DIR}/labels.txt"
+  echo "14 parking meter" >> "${OUTPUT_DIR}/labels.txt"
+  echo "15 bench" >> "${OUTPUT_DIR}/labels.txt"
+fi
 
 echo "EXPORTING frozen graph from checkpoint..."
 python object_detection/export_tflite_ssd_graph.py \
